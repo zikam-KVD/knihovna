@@ -17,10 +17,21 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+                background: gray;
             }
         </style>
     </head>
 <body>
+    @if(null !== Session::has('msg'))
+        <p style="font-weight: bold;">{{ Session::get('msg') }}</p>
+    @endif
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
     <table>
         <tr>
             <td>Jméno</td>
@@ -38,6 +49,20 @@
                 </td>
             </tr>
             @endforeach
+            <tr>
+                <form action="{{ route('pridej-autora') }}" method="POST">¨
+                    @csrf
+                    <td>
+                        <input type="text" name="name" value="{{ old('name') }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="last_name" value="{{ old('last_name') }}" required>
+                    </td>
+                    <td>
+                        <input type="submit" value="Vložit">
+                    </td>
+                </form>
+            </tr>
     </table>
 </body>
 </html>
