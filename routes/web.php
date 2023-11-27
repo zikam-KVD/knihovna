@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/knihy', function () {
+    return view('knihy');
+})->name('prehled');
+
+Route::get(
+    '/autori',
+    [AuthorController::class, "vratAutory"]
+)->name('autori');
+
+Route::get('/smaz-autora/{id}', [AuthorController::class, 'deleteAutor'])->name('smaz');
